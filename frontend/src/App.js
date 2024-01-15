@@ -3,7 +3,12 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>"Hello world"</h1>
+      <form>
+        <label>
+          Enter github username: 
+          <input type="test" name="username" />
+        </label>
+      </form>
     </div>
   );
 }
