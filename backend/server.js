@@ -29,5 +29,21 @@ app.post("/search", (req, res) => {
     });
 });
 
+// User endpoint
+app.get("/user/:username", (req, res) => {
+  const { username } = req.params;
+
+  // Make a GET request to the GitHub API to fetch user details
+  fetch(`https://api.github.com/users/${username}`)
+    .then((response) => response.json())
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      res.status(500).json({ error: "An error occurred" });
+    });
+});
+
 // Start the server
 app.listen(port, () => console.log("Listening engaged"));

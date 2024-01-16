@@ -44,7 +44,7 @@ const Home = () => {
             <div className="user-info">
               <h4>{user.name}</h4>
               <small>{user.id}</small>
-              <a href={user.profileUrl}>View Profile</a>
+              <a href={`/user/${user.username}`}>View Profile</a>
             </div>
           </div>
         ))}
