@@ -11,7 +11,11 @@ app.post("/search", (req, res) => {
   const { username } = req.body;
 
   // Make a GET request to the GitHub API to search for users
-  fetch(`https://api.github.com/search/users?q=${username}`)
+  fetch(`https://api.github.com/search/users?q=${username}`, {
+    headers: {
+      Authorization: "token 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", // Replace with your actual token
+    },
+  })
     .then((response) => response.json())
     .then((data) => {
       // Extract the relevant user data
@@ -30,20 +34,31 @@ app.post("/search", (req, res) => {
 });
 
 // User endpoint
-app.get("/user/:username", (req, res) => {
+app.get("/:username", async (req, res) => {
   const { username } = req.params;
 
-  // Make a GET request to the GitHub API to fetch user details
-  fetch(`https://api.github.com/users/${username}`)
-    .then((response) => response.json())
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      res.status(500).json({ error: "An error occurred" });
+  try {
+    const userResponse = await fetch(`https://api.github.com/users/${username}`, {
+      headers: {
+        Authorization: "token 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", // Replace with your actual token
+      },
     });
+    const user = await userResponse.json();
+
+    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=5`, {
+      headers: {
+        Authorization: "token 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", // Replace with your actual token
+      },
+    });
+    const repos = await reposResponse.json();
+
+    res.json({ user, repos });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ error: "Error fetching user data" });
+  }
 });
+
 
 // Start the server
 app.listen(port, () => console.log("Listening engaged"));

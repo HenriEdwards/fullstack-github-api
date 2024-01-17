@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
@@ -44,7 +45,8 @@ const Home = () => {
             <div className="user-info">
               <h4>{user.name}</h4>
               <small>{user.id}</small>
-              <a href={`/user/${user.username}`}>View Profile</a>
+              {/* ffs */}
+              <a href={`/username=${user.name}`}>View Profile</a>
             </div>
           </div>
         ))}

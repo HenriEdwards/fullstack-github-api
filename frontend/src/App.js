@@ -1,4 +1,5 @@
 import './App.css';
+// FFS
 import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import User from "./pages/User"
@@ -8,7 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/user/:username" element={<User />} />
+        <Route path="/:username" element={<User />} />
       </Routes>
     </BrowserRouter>
   );
