@@ -11,21 +11,30 @@ const User = () => {
     // Fetch user data and repositories
     const fetchUserData = async () => {
       try {
+        // Extract the username from the URL
         const username = location.pathname.replace('/username=', '');
+
+        // Fetch user data and repositories from the server
         const response = await fetch(`/${username}`);
         const { user, repos } = await response.json();
         console.log('Fetched repos:', repos); // Add this console.log statement
+
+        // Update the state with the fetched data
         setUserData(user);
         setRepos(repos);
 
         // Fetch commits for each repository
         if (repos.length > 0) {
+          // Create an array of promises to fetch commits for each repository
           const commitPromises = repos.map((repo) => fetchCommits(repo));
+          // Wait for all the commit promises to resolve
           Promise.all(commitPromises).then((commitResults) => {
             const commitData = {};
+            // Associate the commit results with their respective repository IDs
             repos.forEach((repo, index) => {
               commitData[repo.id] = commitResults[index];
             });
+            // Update the state with the commit data
             setCommitData(commitData);
           });
         }
@@ -40,8 +49,11 @@ const User = () => {
   // Fetch commits for a repository
   const fetchCommits = async (repo) => {
     try {
+      // Fetch the commits for a repository from the GitHub API
       const commitsResponse = await fetch(repo.commits_url.replace('{/sha}', ''));
       const commitsData = await commitsResponse.json();
+
+       // Get the last 5 commits
       const lastCommits = [];
       for (let i = 0; i < Math.min(5, commitsData.length); i++) {
         lastCommits.push(commitsData[i]);

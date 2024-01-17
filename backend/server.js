@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const port = 8080;
 const fetch = require("node-fetch");
+const API_KEY = require('./config');
 
 app.use(express.json());
 
@@ -13,7 +14,8 @@ app.post("/search", (req, res) => {
   // Make a GET request to the GitHub API to search for users
   fetch(`https://api.github.com/search/users?q=${username}`, {
     headers: {
-      Authorization: "token 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", // Replace with your actual token
+      'Authorization': `token ${API_KEY}`,
+      'Content-Type': 'application/json'
     },
   })
     .then((response) => response.json())
@@ -40,14 +42,16 @@ app.get("/:username", async (req, res) => {
   try {
     const userResponse = await fetch(`https://api.github.com/users/${username}`, {
       headers: {
-        Authorization: "token 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", // Replace with your actual token
+        'Authorization': `token ${API_KEY}`,
+        'Content-Type': 'application/json'
       },
     });
     const user = await userResponse.json();
 
     const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=5`, {
       headers: {
-        Authorization: "token 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", // Replace with your actual token
+        'Authorization': `token ${API_KEY}`,
+        'Content-Type': 'application/json'
       },
     });
     const repos = await reposResponse.json();

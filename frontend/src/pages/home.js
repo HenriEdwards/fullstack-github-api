@@ -40,6 +40,7 @@ const Home = () => {
         </form>
       </div>
       <div className="search-results">
+        {console.log(typeof users)}
         {users.map((user) => (
           <div className="user" key={user.id}>
             <div className="user-info">
