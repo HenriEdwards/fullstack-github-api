@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import './User.css';
 
 const User = () => {
   const location = useLocation();
@@ -17,7 +18,6 @@ const User = () => {
         // Fetch user data and repositories from the server
         const response = await fetch(`/${username}`);
         const { user, repos } = await response.json();
-        console.log('Fetched repos:', repos); // Add this console.log statement
 
         // Update the state with the fetched data
         setUserData(user);
@@ -67,38 +67,39 @@ const User = () => {
 
   return (
     <div>
-      <h2>Welcome to the user page</h2>
       {userData ? (
         <div>
-          <h3>Welcome {userData.name}</h3>
-          <p>{userData.bio}</p>
-          <p>Followers: {userData.followers}</p>
-          <p>Public Repos: {userData.public_repos}</p>
-
-          <h3>Repositories:</h3>
-          {console.log('Current repos:', repos)} {/* Add this console.log statement */}
-
-          {repos.map((repo) => (
-            <div key={repo.id}>
-              <h4>{repo.name}</h4>
-              <p>Creation Date: {repo.created_at}</p>
-              <p>Last Commit Date: {repo.updated_at}</p>
-              <p>Description: {repo.description}</p>
-
-              <h4>Last 5 Commits:</h4>
-              <ul>
-                {commitData[repo.id] &&
-                  commitData[repo.id].map((commit) => (
-                    <li key={commit.sha}>{commit.commit.message}</li>
-                  ))}
-              </ul>
-            </div>
-          ))}
-
-          <img src={userData.avatar_url} alt="User Avatar" />
+           <div className='top-section'>
+              <h3 className='heading-main'>Welcome {userData.name}</h3>
+              <p className='bio'>{userData.bio} | Followers: {userData.followers} | Public Repos: {userData.public_repos}</p>
+              <p><a className='github-link' href={userData.html_url} target="_blank" rel="noopener noreferrer">View GitHub Profile</a></p>
+              <img src={userData.avatar_url} alt="User Avatar" />
+          </div>
+          <div>
+            <h3 className='repo-header'>Repositories</h3>
+            <hr></hr>
+            {repos.map((repo) => (
+              <div key={repo.id}>
+                <div className='repo-section'>
+                  <h4 className='repo-name'><a className='github-link' href={repo.html_url} target="_blank">{repo.name}</a></h4>
+                  {repo.description ? (<p className='repo-description'>{""+ repo.description}</p>):(<p className='repo-description'>No description</p>)}
+                  <p className='date'>Creation Date: {repo.created_at.slice(0, 10)}</p>
+                  <p className='date'>Last Commit Date: {repo.updated_at.slice(0, 10)}</p>
+                  <h4 className='commit-header'>Last 5 Commits:</h4>
+                  <ul>
+                    {commitData[repo.id] &&
+                      commitData[repo.id].map((commit) => (
+                        <li key={commit.sha}>{commit.commit.message}</li>
+                      ))}
+                  </ul>
+                  </div>
+                <hr></hr>
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
-        <p>Loading user data...</p>
+        <p className='loading'>Loading user data...</p>
       )}
     </div>
   );

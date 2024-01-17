@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
@@ -29,7 +28,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="search-form">
-        <h4>GitHub Search User</h4>
+        <h4 className='search-text'>Search GitHub by Username</h4>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -40,14 +39,11 @@ const Home = () => {
         </form>
       </div>
       <div className="search-results">
-        {console.log(typeof users)}
         {users.map((user) => (
           <div className="user" key={user.id}>
             <div className="user-info">
-              <h4>{user.name}</h4>
-              <small>{user.id}</small>
-              {/* ffs */}
-              <a href={`/username=${user.name}`}>View Profile</a>
+              <h4 className="user-name">{user.name}</h4>
+              <a className='link' href={`/username=${user.name}`}>View Profile</a>
             </div>
           </div>
         ))}

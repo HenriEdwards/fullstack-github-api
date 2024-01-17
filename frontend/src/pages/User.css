@@ -1,0 +1,82 @@
+body {
+  background-color: #22272E;
+}
+
+* {
+  padding: 0;
+}
+
+.bio, .loading{
+  font-style: italic;
+  font-size: 15px;
+  margin-bottom: 15px;
+  color:#8894a0;
+}
+
+.github-link {
+  color: #28a745 !important;
+}
+
+.heading-main, h3{
+  padding: 15px;
+  font-size: 35px;
+  color:#ACBAC7;
+}
+
+.top-section{
+  background-color: #111418;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.repo-header{
+  font-size: 30px;
+  color:#ACBAC7;
+  padding: 0px;
+  margin-bottom: 10px;
+}
+
+.repo-section{
+  color:#ACBAC7;
+  padding: 0px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+p{
+  padding: 5px;
+}
+
+.repo-name{
+  font-weight: 800;
+  font-size: 20px;
+  color:#707a85;
+  padding: 15px;
+
+}
+
+.commit-header{
+  font-size: 15px;
+  padding: 15px;
+  color:#707a85;
+  font-weight: 800;
+}
+
+ul{
+  padding-bottom: 15px;
+}
+
+li{
+  color: #707a85;
+  padding: 3px;
+}
+
+.date{
+  font-size: 14px;
+}
+
+.repo-description{
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-style: italic;
+}

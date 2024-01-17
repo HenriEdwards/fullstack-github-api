@@ -3,9 +3,47 @@
 }
 
 .search-form{
-  background-color: rgb(39, 39, 39);
-  padding: 10px;
+  background-color:#347D39;
+  padding: 25px;
+  margin-top: 25px;
   border-radius: 10px;
   color: white;
 
+}
+
+.user{
+  padding: 15px;
+  color: #ACBAC7;
+}
+
+.link {
+  color: #28a745;
+  padding-top: 15px;
+}
+.user-name{
+  padding-bottom: 15px;
+}
+
+.search-text{
+  padding-bottom: 15px;
+}
+
+button{
+  border-radius: 5px;
+  padding: 5px;
+  color:rgb(233, 233, 233);
+  font-weight: 800;
+  background-color: #28a745;
+}
+
+button:hover{
+  background-color: #1f8336;
+}
+
+input{
+  border-radius: 5px;
+  padding: 5px;
+  color: #2b2b2b;
+  font-weight: 800;
+  background-color: rgb(233, 233, 233);
 }

@@ -4,7 +4,9 @@ const app = express();
 const port = 8080;
 const fetch = require("node-fetch");
 const API_KEY = require('./config');
+const helmet = require('helmet');
 
+app.use(helmet());
 app.use(express.json());
 
 // Search endpoint
