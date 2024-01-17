@@ -5,6 +5,7 @@ const Home = () => {
   const [username, setUsername] = useState("");
   const [users, setUsers] = useState([]);
 
+  // Function handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -39,6 +40,7 @@ const Home = () => {
         </form>
       </div>
       <div className="search-results">
+        {/* Render the fetched users */}
         {users.map((user) => (
           <div className="user" key={user.id}>
             <div className="user-info">

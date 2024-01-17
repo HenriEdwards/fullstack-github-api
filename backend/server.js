@@ -13,7 +13,7 @@ app.use(express.json());
 app.post("/search", (req, res) => {
   const { username } = req.body;
 
-  // Make a GET request to the GitHub API to search for users
+  // Make request to the GitHub API to search for users
   fetch(`https://api.github.com/search/users?q=${username}`, {
     headers: {
       'Authorization': `token ${API_KEY}`,
@@ -42,6 +42,7 @@ app.get("/:username", async (req, res) => {
   const { username } = req.params;
 
   try {
+    // Make request to the GitHub API to retrieve username related data
     const userResponse = await fetch(`https://api.github.com/users/${username}`, {
       headers: {
         'Authorization': `token ${API_KEY}`,
@@ -50,6 +51,7 @@ app.get("/:username", async (req, res) => {
     });
     const user = await userResponse.json();
 
+    // Make request to the GitHub API to retrieve username related repos
     const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=5`, {
       headers: {
         'Authorization': `token ${API_KEY}`,
@@ -57,14 +59,12 @@ app.get("/:username", async (req, res) => {
       },
     });
     const repos = await reposResponse.json();
-
     res.json({ user, repos });
   } catch (error) {
     console.error("Error fetching user data:", error);
     res.status(500).json({ error: "Error fetching user data" });
   }
 });
-
 
 // Start the server
 app.listen(port, () => console.log("Listening engaged"));

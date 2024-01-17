@@ -8,15 +8,17 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "test": "mocha server.test.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "chai": "^5.0.0",
+    "mocha": "^10.2.0",
     "nodemon": "^3.0.2"
   }
 }

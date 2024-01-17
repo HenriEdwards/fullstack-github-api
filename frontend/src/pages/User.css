@@ -80,3 +80,16 @@ li{
   margin-bottom: 10px;
   font-style: italic;
 }
+
+
+.loading-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15%;
+  width: 15%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
