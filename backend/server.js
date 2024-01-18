@@ -68,3 +68,5 @@ app.get("/:username", async (req, res) => {
 
 // Start the server
 app.listen(port, () => console.log("Listening engaged"));
+
+module.exports = app;

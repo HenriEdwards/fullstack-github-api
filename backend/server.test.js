@@ -1,43 +1,64 @@
-// const fetch = require("node-fetch");
-// const API_KEY = require('./config');
-// const app = require('./server');
+const fetch = require('node-fetch');
+const app = require('./server.js');
+const API_KEY = require('./config');
+const request = require('supertest');
 
-// // Snapshot test for the "/search" endpoint
-// describe("POST /search", () => {
-//   it("should return the expected user data", async () => {
-//     const response = await fetch("http://localhost:8081/search", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ username: "HenriEdwards" }),
-//     });
-//     const data = await response.json();
-//     expect(data).toMatchSnapshot();
-//   });
-// });
+jest.mock('node-fetch');
 
-// // Unit test for the "/:username" endpoint
-// describe("GET /:username", () => {
-//   it("should return the user and repos data", async () => {
-//     const username = "HenriEdwards";
-//     const userResponse = await fetch(`http://localhost:8081/${username}`, {
-//       headers: {
-//         'Authorization': `token ${API_KEY}`,
-//         'Content-Type': 'application/json'
-//       },
-//     });
-//     const userData = await userResponse.json();
+describe('API Tests', () => {
+  let server;
 
-//     const reposResponse = await fetch(`http://localhost:8081/${username}/repos?per_page=5`, {
-//       headers: {
-//         'Authorization': `token ${API_KEY}`,
-//         'Content-Type': 'application/json'
-//       },
-//     });
-//     const reposData = await reposResponse.json();
+  beforeAll((done) => {
+    // Start express server
+    server = app.listen(0, () => {
+      done();
+    });
+  });
 
-//     expect(userData).toMatchSnapshot();
-//     expect(reposData).toMatchSnapshot();
-//   });
-// });
+  afterAll((done) => {
+    // Close express server
+    server.close(done);
+  });
+
+  it('should return user data from GitHub API for a given username', async () => {
+    const username = 'testuser';
+    const userData = {};
+
+     // Mock the fetch function to return a response with the desired user data structure
+    fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValueOnce({
+        items: [userData],
+      }),
+    });
+
+    // Send a request to the server endpoint
+    const response = await request(server)
+      .post('/search')
+      .send({ username })
+      .expect(200);
+
+    // Verify that 'fetch' is called once
+    expect(fetch).toHaveBeenCalledTimes(1);
+
+    // Verify that 'fetch' is called with specific arguments
+    expect(fetch).toHaveBeenCalledWith(
+
+      // Verify that the URL passed to the 'fetch' contains expected API
+      expect.stringContaining(`https://api.github.com/search/users?q=${username}`),
+
+      // Verify header passed to 'fetch' contains expected structure and values
+      expect.objectContaining({
+        headers: {
+          // Verify content type
+          'Content-Type': 'application/json',
+
+          // Verify auth
+          'Authorization': `token ${API_KEY}`,
+        },
+      })
+    );
+
+    // Check that the response body matches the expected user data
+    expect(response.body).toEqual([userData]);
+  });
+});
