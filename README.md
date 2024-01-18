@@ -33,3 +33,11 @@ To run the application locally, follow these steps:
 ## Creator
 
 Henri Edwards - HyperionDev 2024
+
+## Screenshots
+
+![Screenshot 1](screenshots/search-page.png)
+*Search page*
+
+![Screenshot 2](screenshots/user-page.png)
+*User page*
